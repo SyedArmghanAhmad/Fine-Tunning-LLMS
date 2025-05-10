@@ -1,3 +1,4 @@
+
 # **Medical LLM Fine-Tuning with LoRA**
 
 ## **Project Overview**
@@ -14,12 +15,17 @@ Fine-tuned `DeepSeek-R1-Distill-Llama-8B` using **LoRA** for enhanced medical re
 - 🏥 **Specialized for Clinical Reasoning** (500 medical cases)
 - 💻 **Runs on Consumer GPUs** via 4-bit quantization
 - 🎯 **Precision-Tuned Responses** with structured prompts
+- 📊 **Full Experiment Tracking** with Weights & Biases (WandB)
 
 ## **Quick Start**
 
 ```python
-!pip install unsloth transformers gradio
+!pip install unsloth transformers gradio wandb
 from unsloth import FastLanguageModel
+import wandb
+
+# Initialize WandB (optional)
+wandb.init(project="medical-llm-finetuning")
 
 # Load fine-tuned model
 model, tokenizer = FastLanguageModel.from_pretrained(
@@ -34,6 +40,15 @@ print(tokenizer.decode(outputs[0]))
 ```
 
 ## **Training Details**
+
+### **Monitoring**
+
+All training metrics logged to [Weights & Biases](https://wandb.ai):
+
+- Loss curves
+- Memory usage
+- Evaluation metrics
+- Hardware utilization
 
 ### **Dataset**
 
@@ -55,6 +70,7 @@ print(tokenizer.decode(outputs[0]))
 | Batch Size         | 2 (eff. 8)  | Fits Colab T4 GPU                |
 | Learning Rate      | 2e-4        | Optimal for LoRA                 |
 | Seq Length         | 2048        | Long medical reasoning           |
+| Tracking           | WandB       | Experiment monitoring            |
 
 ## **Performance Comparison**
 
@@ -67,21 +83,20 @@ print(tokenizer.decode(outputs[0]))
 | Explanation Depth| Basic      | Detailed   |
 | Relevance        | 6/10       | 9/10       |
 
-**
-
 ```bash
 gradio app.py  # Local deployment
 ```
 
 ## **Files**
 
- ```bash
+```bash
 medical-deepseek-lora/
 ├── adapter_config.json
 ├── adapter_model.safetensors
 ├── special_tokens_map.json
-└── README.md  # This file
- ```
+├── wandb/              # Training logs and artifacts
+└── README.md
+```
 
 ## **License**
 
@@ -95,4 +110,5 @@ Apache 2.0
 - [ ] Expand to 10k cases  
 - [ ] Optimize for real-time clinical use  
 
-*Created with ❤️ for medical AI*
+*Created with ❤️ for medical AI*  
+*Experiment tracking powered by Weights & Biases*
